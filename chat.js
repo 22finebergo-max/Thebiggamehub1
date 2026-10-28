@@ -1,10 +1,10 @@
-/* Amaan Clicker — Supabase Global Chat */
+/* The Game Hub — Supabase global chat */
 (function(){
 'use strict';
 var CFG=(window.HUB_SUPA&&window.HUB_SUPA.chat)||{};
 var PROJECT_URL=CFG.url||'https://azmeeaghohopwdwxmvbr.supabase.co';
 var PUBLISHABLE_KEY=CFG.key||'sb_publishable_00HcX4jPC-y8_OnwX1kv-g_zU_OPwcw';
-var BLOCK_KEY='amaan-chat-blocked-v1';
+var BLOCK_KEY='hub-chat-blocked-v1';
 var q=function(id){return document.getElementById(id)};
 var client=null,user=null,profile=null,channel=null,messages=[],started=false,sending=false;
 var blocked=new Set();
@@ -135,7 +135,7 @@ function clearBlocks(){if(!blocked.size||confirm('Unblock every locally blocked 
 function updateCount(){var n=q('chatInput').value.length;q('chatCharCount').textContent=n+' / 250';q('chatSend').disabled=sending||n<1||n>250}
 
 function setup(){
-  var tab=document.querySelector('[data-tab="chat"]');if(!tab)return;tab.addEventListener('click',function(){startChat(false)});
+  var tab=document.querySelector('[data-tab="chat"]');if(tab)tab.addEventListener('click',function(){startChat(false)});else startChat(false);
   q('chatRetry').onclick=function(){started=false;startChat(true)};q('chatSaveName').onclick=saveName;q('chatChangeName').onclick=editName;q('chatClearBlocks').onclick=clearBlocks;q('chatSend').onclick=sendMessage;
   q('chatNameInput').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();saveName()}});
   q('chatInput').addEventListener('input',updateCount);q('chatInput').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}});updateCount();updateBlockedCount()
